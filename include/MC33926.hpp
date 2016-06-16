@@ -1,0 +1,78 @@
+/* COPYRIGHT (c) 2016 Nova Labs SRL
+ *
+ * All rights reserved. All use of this software and documentation is
+ * subject to the License Agreement located in the file LICENSE.
+ */
+
+#pragma once
+
+#include <Configuration.hpp>
+
+#include <Core/HW/PWM.hpp>
+#include <Core/HW/GPIO.hpp>
+#include <Core/MW/CoreActuator.hpp>
+
+namespace actuators {
+   class MC33926
+   {
+public:
+      MC33926(
+         Core::HW::PWMChannel& channel0,
+         Core::HW::PWMChannel& channel1,
+         Core::HW::Pad&        enable,
+         Core::HW::Pad&        d1
+      );
+
+      virtual
+      ~MC33926();
+
+public:
+      bool
+      probe();
+
+
+public:
+      Core::HW::PWMChannel& _channel0;
+      Core::HW::PWMChannel& _channel1;
+      Core::HW::Pad&        _enable;
+      Core::HW::Pad&        _d1;
+   };
+
+
+   class MC33926_SignMagnitude:
+      public Core::MW::CoreActuator<float>
+   {
+public:
+      MC33926_SignMagnitude(
+         MC33926& device
+      );
+
+      virtual
+      ~MC33926_SignMagnitude();
+
+public:
+      bool
+      init();
+
+      bool
+      start();
+
+      bool
+      stop();
+
+      bool
+      waitUntilReady();
+
+      bool
+      set(
+         DataType& data
+      );
+
+
+protected:
+      Core::MW::Time _set_timestamp;
+
+private:
+      MC33926& _device;
+   };
+}
