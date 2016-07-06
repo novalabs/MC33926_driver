@@ -60,7 +60,7 @@ namespace actuators {
 
    bool
    MC33926_SignMagnitude::set(
-      DataType& data
+      const DataType& data
    )
    {
       int16_t pwm = data * 4095; // TODO: check if max is 4095 or 4096
