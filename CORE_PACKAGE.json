@@ -1,8 +1,5 @@
 {
   "name": "MC33926_driver",
-  "namespace": "driver",
   "description": "NXP MC33926 driver",
-  "sources": [
-    "MC33926.cpp"
-  ]
+  "provider": "core"
 }

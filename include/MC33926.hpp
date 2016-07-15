@@ -6,73 +6,79 @@
 
 #pragma once
 
-#include <Configuration.hpp>
+#include <ModuleConfiguration.hpp>
 
-#include <Core/HW/PWM.hpp>
-#include <Core/HW/GPIO.hpp>
-#include <Core/MW/CoreActuator.hpp>
+#include <core/hw/PWM.hpp>
+#include <core/hw/GPIO.hpp>
+#include <core/mw/CoreActuator.hpp>
 
-namespace actuators {
-   class MC33926
-   {
+namespace core {
+namespace MC33926_driver {
+class MC33926
+{
 public:
-      MC33926(
-         Core::HW::PWMChannel& channel0,
-         Core::HW::PWMChannel& channel1,
-         Core::HW::Pad&        enable,
-         Core::HW::Pad&        d1
-      );
+   MC33926(
+      core::hw::PWMChannel& channel0,
+      core::hw::PWMChannel& channel1,
+      core::hw::Pad&        enable,
+      core::hw::Pad&        d1
+   );
 
-      virtual
-      ~MC33926();
-
-public:
-      bool
-      probe();
-
+   virtual
+   ~MC33926();
 
 public:
-      Core::HW::PWMChannel& _channel0;
-      Core::HW::PWMChannel& _channel1;
-      Core::HW::Pad&        _enable;
-      Core::HW::Pad&        _d1;
-   };
+   bool
+   probe();
 
-
-   class MC33926_SignMagnitude:
-      public Core::MW::CoreActuator<float>
-   {
-public:
-      MC33926_SignMagnitude(
-         MC33926& device
-      );
-
-      virtual
-      ~MC33926_SignMagnitude();
 
 public:
-      bool
-      init();
+   core::hw::PWMChannel& _channel0;
+   core::hw::PWMChannel& _channel1;
+   core::hw::Pad&        _enable;
+   core::hw::Pad&        _d1;
+};
 
-      bool
-      start();
 
-      bool
-      stop();
+class MC33926_SignMagnitude:
+   public core::mw::CoreActuator<float>
+{
+public:
+   MC33926_SignMagnitude(
+      const char* name,
+      MC33926&    device
+   );
 
-      bool
-      waitUntilReady();
+   virtual
+   ~MC33926_SignMagnitude();
 
-      bool
-      set(
-         DataType& data
-      );
+public:
+   bool
+   init();
+
+   bool
+   configure();
+
+   bool
+   start();
+
+   bool
+   stop();
+
+   bool
+   waitUntilReady();
+
+   bool
+   set(
+      const DataType& data
+   );
 
 
 protected:
-      Core::MW::Time _set_timestamp;
+   core::os::Time _set_timestamp;
 
 private:
-      MC33926& _device;
-   };
+   MC33926& _device;
+};
+}
 }
