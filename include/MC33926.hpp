@@ -10,7 +10,7 @@
 
 #include <core/hw/PWM.hpp>
 #include <core/hw/GPIO.hpp>
-#include <core/mw/CoreActuator.hpp>
+#include <core/utils/BasicActuator.hpp>
 
 namespace core {
 namespace MC33926_driver {
@@ -41,7 +41,7 @@ public:
 
 
 class MC33926_SignMagnitude:
-   public core::mw::CoreActuator<float>
+   public core::utils::BasicActuator<float>
 {
 public:
    MC33926_SignMagnitude(
