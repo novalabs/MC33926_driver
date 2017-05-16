@@ -17,68 +17,68 @@ namespace MC33926_driver {
 class MC33926
 {
 public:
-   MC33926(
-      core::hw::PWMChannel& channel0,
-      core::hw::PWMChannel& channel1,
-      core::hw::Pad&        enable,
-      core::hw::Pad&        d1
-   );
+    MC33926(
+        core::hw::PWMChannel& channel0,
+        core::hw::PWMChannel& channel1,
+        core::hw::Pad&        enable,
+        core::hw::Pad&        d1
+    );
 
-   virtual
-   ~MC33926();
-
-public:
-   bool
-   probe();
-
+    virtual
+    ~MC33926();
 
 public:
-   core::hw::PWMChannel& _channel0;
-   core::hw::PWMChannel& _channel1;
-   core::hw::Pad&        _enable;
-   core::hw::Pad&        _d1;
+    bool
+    probe();
+
+
+public:
+    core::hw::PWMChannel& _channel0;
+    core::hw::PWMChannel& _channel1;
+    core::hw::Pad&        _enable;
+    core::hw::Pad&        _d1;
 };
 
 
 class MC33926_SignMagnitude:
-   public core::utils::BasicActuator<float>
+    public core::utils::BasicActuator<float>
 {
 public:
-   MC33926_SignMagnitude(
-      const char* name,
-      MC33926&    device
-   );
+    MC33926_SignMagnitude(
+        const char* name,
+        MC33926&    device
+    );
 
-   virtual
-   ~MC33926_SignMagnitude();
+    virtual
+    ~MC33926_SignMagnitude();
 
 public:
-   bool
-   init();
+    bool
+    init();
 
-   bool
-   configure();
+    bool
+    configure();
 
-   bool
-   start();
+    bool
+    start();
 
-   bool
-   stop();
+    bool
+    stop();
 
-   bool
-   waitUntilReady();
+    bool
+    waitUntilReady();
 
-   bool
-   set(
-      const DataType& data
-   );
+    bool
+    set(
+        const DataType& data
+    );
 
 
 protected:
-   core::os::Time _set_timestamp;
+    core::os::Time _set_timestamp;
 
 private:
-   MC33926& _device;
+    MC33926& _device;
 };
 }
 }
