@@ -85,6 +85,24 @@ MC33926_SignMagnitude::set(
 }
 
 bool
+MC33926_SignMagnitude::setI(
+    const DataType& data
+)
+{
+    int16_t pwm = data * 4095;      // TODO: check if max is 4095 or 4096
+
+    if (pwm >= 0) {
+        _device._channel0.setI(pwm);
+        _device._channel1.setI(0);
+    } else {
+        _device._channel0.setI(0);
+        _device._channel1.setI(-pwm);
+    }
+
+    return true;
+}
+
+bool
 MC33926_SignMagnitude::waitUntilReady()
 {
     return true;

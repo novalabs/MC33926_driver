@@ -12,6 +12,8 @@
 #include <core/hw/GPIO.hpp>
 #include <core/utils/BasicActuator.hpp>
 
+#include <core/common_msgs/Float32.hpp>
+
 namespace core {
 namespace MC33926_driver {
 class MC33926
@@ -73,12 +75,31 @@ public:
         const DataType& data
     );
 
+    bool
+    setI(
+        const DataType& data
+    );
+
 
 protected:
     core::os::Time _set_timestamp;
 
 private:
     MC33926& _device;
+
+public:
+    struct Converter {
+        using TO   = float;
+        using FROM = core::common_msgs::Float32;
+
+        static inline TO
+        _(
+            const FROM& from
+        )
+        {
+            return from.value;
+        }
+    };
 };
 }
 }
